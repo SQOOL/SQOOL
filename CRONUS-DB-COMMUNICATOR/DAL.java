@@ -1,4 +1,4 @@
-package DataAccessLayer;
+package dataAccessLayer;
 
 import java.sql.*;
 import javax.swing.table.DefaultTableModel;
@@ -21,7 +21,7 @@ public class DAL {
 
 		con = connectionTest();
 		
-		PreparedStatement prepStmnt = con.prepareStatement("SELECT * FROM [Demo Database NAV (5-0)].[dbo].[CRONUS Sverige AB$Employee]");
+		PreparedStatement prepStmnt = con.prepareStatement("SELECT No_ , [First Name], [Last Name], Initials, [Job Title], [Search Name]  FROM [Demo Database NAV (5-0)].[dbo].[CRONUS Sverige AB$Employee]");
 		ResultSet resSet = prepStmnt.executeQuery();
 
 		ResultSetMetaData metadata = resSet.getMetaData();
@@ -54,7 +54,7 @@ public class DAL {
 
 		con = connectionTest();
 		
-		PreparedStatement prepStmnt = con.prepareStatement("SELECT [TABLE_CATALOG], [TABLE_SCHEMA], [TABLE_NAME], [COLUMN_NAME], [DATA_TYPE]  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = [CRONUS Sverige AB$Employee]");	
+		PreparedStatement prepStmnt = con.prepareStatement("SELECT [TABLE_CATALOG], [TABLE_SCHEMA], [TABLE_NAME], [COLUMN_NAME], [DATA_TYPE]  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'CRONUS Sverige AB$Employee'");	
 		ResultSet resSet = prepStmnt.executeQuery();
 		ResultSetMetaData metadata = resSet.getMetaData();
 		int numberOfColumns = metadata.getColumnCount();
@@ -87,7 +87,7 @@ public class DAL {
 
 		con = connectionTest();
 		
-		PreparedStatement prepStmnt = con.prepareStatement("SELECT OBJECT_NAME(OBJECT_ID),SCHEMA_NAME(schema_id),OBJECT_NAME(parent_object_id),type_desc FROM sys.objects WHERE type_desc IN ('FOREIGN_KEY_CONSTRAINT','PRIMARY_KEY_CONSTRAINT')'");
+		PreparedStatement prepStmnt = con.prepareStatement("SELECT OBJECT_NAME(OBJECT_ID),SCHEMA_NAME(schema_id),OBJECT_NAME(parent_object_id),type_desc FROM sys.objects WHERE type_desc IN ('FOREIGN_KEY_CONSTRAINT','PRIMARY_KEY_CONSTRAINT')");
 		
 		ResultSet resSet = prepStmnt.executeQuery();
 
@@ -189,7 +189,7 @@ public class DAL {
 
 		con = connectionTest();
 		
-		PreparedStatement prepStmnt = con.prepareStatement("SELECT * FROM information_schema.tables");
+		PreparedStatement prepStmnt = con.prepareStatement("SELECT * FROM INFORMATION_SCHEMA.TABLES");
 		
 		ResultSet resSet = prepStmnt.executeQuery();
 
@@ -216,6 +216,40 @@ public class DAL {
 	}
 	
 	/* --------------------------------------------------------------------------------------------------------------- */
+	/* ---------------------------------------------- GET ALL TABLES - 2! ---------------------------------------------- */
+	/* --------------------------------------------------------------------------------------------------------------- */
+	
+	public DefaultTableModel getAllTables2(DefaultTableModel dataModel) throws SQLException  { // Finds all TABLES
+
+		con = connectionTest();
+		
+		PreparedStatement prepStmnt = con.prepareStatement("SELECT name, object_id, [type_desc] FROM sys.tables");
+		
+		ResultSet resSet = prepStmnt.executeQuery();
+
+		ResultSetMetaData metadata = resSet.getMetaData();
+		int numberOfColumns = metadata.getColumnCount();
+
+		while (resSet.next()) {              
+		
+			int i = 1;
+			while(i <= numberOfColumns) {
+				
+				String name = resSet.getString(i++);
+				String object_Id = resSet.getString(i++);
+				String typeDesc = resSet.getString(i++);
+				
+				
+				Object[] allTables2 = {name, object_Id, typeDesc};
+				
+				dataModel.addRow(allTables2);
+			}
+		}
+		
+		return dataModel; 
+	}
+	
+	/* --------------------------------------------------------------------------------------------------------------- */
 	/* ---------------------------------------------- GET ALL COLUMNS! ---------------------------------------------- */
 	/* --------------------------------------------------------------------------------------------------------------- */
 	public DefaultTableModel getAllColumns(DefaultTableModel dataModel) throws SQLException  { // Finds all COLUMNS
@@ -223,6 +257,38 @@ public class DAL {
 		con = connectionTest();
 		
 		PreparedStatement prepStmnt = con.prepareStatement("SELECT name FROM sys.columns  WHERE object_id = OBJECT_ID ('CRONUS Sverige AB$Employee') ORDER BY column_id");
+		
+		ResultSet resSet = prepStmnt.executeQuery();
+
+		ResultSetMetaData metadata = resSet.getMetaData();
+		int numberOfColumns = metadata.getColumnCount();
+
+		while (resSet.next()) {              
+		
+			int i = 1;
+			while(i <= numberOfColumns) {
+				
+				String columnNames = resSet.getString(i++);
+				
+				
+				Object[] allColumns = {columnNames};
+				
+				dataModel.addRow(allColumns);
+			}
+		}
+		
+		return dataModel; 
+	}
+	
+	
+	/* --------------------------------------------------------------------------------------------------------------- */
+	/* ---------------------------------------------- GET ALL COLUMNS - 2! ---------------------------------------------- */
+	/* --------------------------------------------------------------------------------------------------------------- */
+	public DefaultTableModel getAllColumns2(DefaultTableModel dataModel) throws SQLException  { // Finds all COLUMNS
+
+		con = connectionTest();
+		
+		PreparedStatement prepStmnt = con.prepareStatement("SELECT COLUMN_NAME AS 'All columns' FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='CRONUS Sverige AB$Employee'");
 		
 		ResultSet resSet = prepStmnt.executeQuery();
 
@@ -289,7 +355,7 @@ public class DAL {
 
 		con = connectionTest();
 		
-		PreparedStatement prepStmnt = con.prepareStatement("SELECT employeeNo, [From Date], [To Date], [Cause of Absence], [Description] FROM [CRONUS Sverige AB$Employee Absence] ");
+		PreparedStatement prepStmnt = con.prepareStatement("SELECT [Employee No_], [From Date], [To Date], [Cause of Absence Code], [Description] FROM [CRONUS Sverige AB$Employee Absence] ");
 		
 		ResultSet resSet = prepStmnt.executeQuery();
 
@@ -325,7 +391,7 @@ public class DAL {
 
 		con = connectionTest();
 		
-		PreparedStatement prepStmnt = con.prepareStatement("SELECT employeeNo, [Relative Code], [First Name], [Last Name], [Birth Date] FROM [CRONUS Sverige AB$Employee Relative]");
+		PreparedStatement prepStmnt = con.prepareStatement("SELECT [Employee No_], [Relative Code], [First Name], [Last Name], [Birth Date] FROM [CRONUS Sverige AB$Employee Relative]");
 		
 		ResultSet resSet = prepStmnt.executeQuery();
 
@@ -360,7 +426,7 @@ public class DAL {
 
 		con = connectionTest();
 		
-		PreparedStatement prepStmnt = con.prepareStatement("SELECT employeeNo, [Qualification Code], [From Date], [To Date], [Description] FROM [CRONUS Sverige AB$Employee Qualification]");
+		PreparedStatement prepStmnt = con.prepareStatement("SELECT [Employee No_], [Qualification Code], [From Date], [To Date], [Description] FROM [CRONUS Sverige AB$Employee Qualification]");
 		
 		ResultSet resSet = prepStmnt.executeQuery();
 
@@ -395,7 +461,7 @@ public class DAL {
 
 		con = connectionTest();
 		
-		PreparedStatement prepStmnt = con.prepareStatement("SELECT [TABLE_CATALOG], [TABLE_SCHEMA], [TABLE_NAME], [COLUMN_NAME], [DATA_TYPE]  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = [CRONUS Sverige AB$Employee Absence]");
+		PreparedStatement prepStmnt = con.prepareStatement("SELECT [TABLE_CATALOG], [TABLE_SCHEMA], [TABLE_NAME], [COLUMN_NAME], [DATA_TYPE]  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'CRONUS Sverige AB$Employee Absence'");
 		
 		ResultSet resSet = prepStmnt.executeQuery();
 
@@ -407,10 +473,13 @@ public class DAL {
 			int i = 1;
 			while(i <= numberOfColumns) {
 			
+				String tableCatalog = resSet.getString(i++);
+				String tableSchema = resSet.getString(i++);
 				String tableName = resSet.getString(i++);
-				String rowCount = resSet.getString(i++);
+				String columnName = resSet.getString(i++);
+				String dataType = resSet.getString(i++);
 				
-				Object[] absenceMetadata = {tableName, rowCount};
+				Object[] absenceMetadata = {tableCatalog, tableSchema, tableName, columnName, dataType};
 				
 				dataModel.addRow(absenceMetadata);
 			}
@@ -426,7 +495,7 @@ public class DAL {
 
 		con = connectionTest();
 		
-		PreparedStatement prepStmnt = con.prepareStatement("SELECT [TABLE_CATALOG], [TABLE_SCHEMA], [TABLE_NAME], [COLUMN_NAME], [DATA_TYPE]  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = [CRONUS Sverige AB$Employee Relative]");
+		PreparedStatement prepStmnt = con.prepareStatement("SELECT [TABLE_CATALOG], [TABLE_SCHEMA], [TABLE_NAME], [COLUMN_NAME], [DATA_TYPE]  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'CRONUS Sverige AB$Employee Relative'");
 		
 		ResultSet resSet = prepStmnt.executeQuery();
 
@@ -438,10 +507,13 @@ public class DAL {
 			int i = 1;
 			while(i <= numberOfColumns) {
 						
+				String tableCatalog = resSet.getString(i++);
+				String tableSchema = resSet.getString(i++);
 				String tableName = resSet.getString(i++);
-				String rowCount = resSet.getString(i++);
+				String columnName = resSet.getString(i++);
+				String dataType = resSet.getString(i++);
 				
-				Object[] relativeMetadata = {tableName, rowCount};
+				Object[] relativeMetadata = {tableCatalog, tableSchema, tableName, columnName, dataType};
 				
 				dataModel.addRow(relativeMetadata);
 			}
@@ -458,7 +530,7 @@ public class DAL {
 
 		con = connectionTest();
 		
-		PreparedStatement prepStmnt = con.prepareStatement("SELECT [TABLE_CATALOG], [TABLE_SCHEMA], [TABLE_NAME], [COLUMN_NAME], [DATA_TYPE]  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = [CRONUS Sverige AB$Employee Qualification]");
+		PreparedStatement prepStmnt = con.prepareStatement("SELECT [TABLE_CATALOG], [TABLE_SCHEMA], [TABLE_NAME], [COLUMN_NAME], [DATA_TYPE]  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'CRONUS Sverige AB$Employee Qualification'");
 		
 		ResultSet resSet = prepStmnt.executeQuery();
 
@@ -470,10 +542,13 @@ public class DAL {
 			int i = 1;
 			while(i <= numberOfColumns) {
 								
+				String tableCatalog = resSet.getString(i++);
+				String tableSchema = resSet.getString(i++);
 				String tableName = resSet.getString(i++);
-				String rowCount = resSet.getString(i++);
+				String columnName = resSet.getString(i++);
+				String dataType = resSet.getString(i++);
 
-				Object[] qualificationMetadata = {tableName, rowCount};
+				Object[] qualificationMetadata = {tableCatalog, tableSchema, tableName, columnName, dataType};
 				
 				dataModel.addRow(qualificationMetadata);
 			}
@@ -506,12 +581,10 @@ public class DAL {
 	public Connection connectionTest() {
 
 		try { 
-			con = DriverManager.getConnection("jdbc:sqlserver://oxeiuqtake.database.windows.net;" + // CHANGE THIS!
-										      "database = SQOOL_db;" + 
-										      "user = SQOOL_user;" + 
-											  "password = Hj34rT11"); 
-
-			System.out.println("Connection successfull!"); 
+			con = DriverManager.getConnection("jdbc:sqlserver://NIMA\\MSSQLSERVER;" + 
+		                                  "database=Demo Database NAV (5-0);" + 
+		                                  "user=Gruppen2;" + 
+		                                  "password=Lund1234"); 
 		}
 
 		catch (Exception e) {
