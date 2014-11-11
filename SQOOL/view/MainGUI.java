@@ -840,7 +840,9 @@ public class MainGUI extends javax.swing.JFrame {
 	}
 
 	private void SearchStudentButtonActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
-
+		long start = System.nanoTime();
+        System.out.println("Start: " + start);
+        
 		StudentModel.setRowCount(0);
 		InfoBox.setText("");
 		isStudentRowSelected = false; // Clear student logical selection!
@@ -871,6 +873,14 @@ public class MainGUI extends javax.swing.JFrame {
 			StudentTable.setModel(controller.getStudentByFirstName(searchFirstName, StudentModel));
 
 		}
+		  long end = System.nanoTime();
+	        System.out.println("End  : " + end);
+	 
+	        long elapsedTime = end - start;
+	 
+	        // Show how long it took to finish the process
+	        System.out.println("The process took approximately: "
+	            + elapsedTime + " nano seconds");
 	}		
 
 	private void SearchCourseButtonActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
@@ -1154,6 +1164,9 @@ public class MainGUI extends javax.swing.JFrame {
 	}
 
 	private void AddStudentButtonActionPerformed(java.awt.event.ActionEvent evt) throws SQLException{
+		
+		long start = System.nanoTime();
+        System.out.println("Start: " + start);
 
 		String firstName = AddFirstNameTextField.getText();
 		String lastName = AddLastNameTextField.getText();
@@ -1194,6 +1207,14 @@ public class MainGUI extends javax.swing.JFrame {
 			controller.registerStudent(firstName, lastName, socNmbr, adress, city, zipCode);
 			controller.registerStudentTelNmbr(telNmbr, socNmbr);
 			controller.registerStudentEmail(eMail, socNmbr);
+			 long end = System.nanoTime();
+		        System.out.println("End  : " + end);
+		 
+		        long elapsedTime = end - start;
+		 
+		        // Show how long it took to finish the process
+		        System.out.println("The process took approximately: "
+		            + elapsedTime + " nano seconds");
 			JOptionPane.showMessageDialog(null, "Student registered!!","Success!", JOptionPane.PLAIN_MESSAGE);
 			StudentModel.setRowCount(0);
 			controller.getAllStudents(StudentModel);
@@ -1207,6 +1228,7 @@ public class MainGUI extends javax.swing.JFrame {
 			AddPhoneNmbrTextField.setText("Telephone number");
 			AddEmailTextField.setText("E-mail"); 
 		}
+		
 	}
 	
 	private void AddCourseButtonActionPerformed(java.awt.event.ActionEvent evt) throws SQLException{
@@ -1241,6 +1263,7 @@ public class MainGUI extends javax.swing.JFrame {
 			AddCourseNameTextField.setText("Course name");
 			AddCourseCreditsTextField.setText("Course credits");
 		}
+		
 	}
 
 	/*----------------------------------------------------------------------------------------------------------*/
