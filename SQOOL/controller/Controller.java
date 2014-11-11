@@ -21,12 +21,12 @@ public class Controller {
 		dal.registerStudent(firstName, lastName, socNmbr, adress, city, zipCode);
 	}
 
-	public void registerStudentEmail(String socNmbr, String eMail) throws SQLException {
-		dal.registerStudentEmail(socNmbr, eMail);
+	public void registerStudentEmail(String eMail, String socNmbr) throws SQLException {
+		dal.registerStudentEmail(eMail, socNmbr);
 	}
 
-	public void registerStudentTelNmbr(String socNmbr, String telNmbr) throws SQLException {
-		dal.registerStudentTelNmbr(socNmbr, telNmbr);
+	public void registerStudentTelNmbr(String telNmbr, String socNmbr) throws SQLException {
+		dal.registerStudentTelNmbr(telNmbr, socNmbr);
 	}
 
 	/* -------------------------------------------------------------------------------------------------- */
