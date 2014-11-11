@@ -1,9 +1,9 @@
-package Controller;
+package controller;
 
 import java.sql.*;
 import javax.swing.table.DefaultTableModel;
 
-import DataAccessLayer.DAL;
+import dataAccessLayer.DAL;
 
 public class Controller {
 
@@ -31,10 +31,15 @@ public class Controller {
 	public DefaultTableModel getAllTables(DefaultTableModel dataModel) throws SQLException {
 		return dal.getAllTables(dataModel);
 	}
+	public DefaultTableModel getAllTables2(DefaultTableModel dataModel) throws SQLException {
+		return dal.getAllTables2(dataModel);
+	}
 	public DefaultTableModel getAllColumns(DefaultTableModel dataModel) throws SQLException {
 		return dal.getAllColumns(dataModel);
 	}
-	
+	public DefaultTableModel getAllColumns2(DefaultTableModel dataModel) throws SQLException {
+		return dal.getAllColumns2(dataModel);
+	}
 	public DefaultTableModel getTableMostRows(DefaultTableModel dataModel) throws SQLException {
 		return dal.getTableMostRows(dataModel);
 	}
