@@ -42,7 +42,7 @@ public class DAL {
 
 	/* -------------------------------------------------------------------------------------------------- */
 	
-	public void registerStudentEmail(String socNmbr, String eMail) throws SQLException {
+	public void registerStudentEmail(String eMail, String socNmbr) throws SQLException {
 
 		con = connectionTest();
 
@@ -57,7 +57,7 @@ public class DAL {
 	
 	/* -------------------------------------------------------------------------------------------------- */
 
-	public void registerStudentTelNmbr(String socNmbr, String telNmbr) throws SQLException {
+	public void registerStudentTelNmbr(String telNmbr, String socNmbr) throws SQLException {
 		
 		con = connectionTest();
 		PreparedStatement prepStmnt = con.prepareStatement("INSERT INTO Telephone "
@@ -897,10 +897,10 @@ public class DAL {
 	public Connection connectionTest() {
 
 		try { 
-			con = DriverManager.getConnection("jdbc:sqlserver://oxeiuqtake.database.windows.net;" + 
+			con = DriverManager.getConnection("jdbc:sqlserver://NIMA\\MSSQLSERVER;" + 
 											  "database = SQOOL_db;" + 
-											  "user = SQOOL_user;" + 
-											  "password = Hj34rT11"); 
+											  "user = Gruppen2;" + 
+											  "password = Lund1234"); 
 		}
 
 		catch (Exception e) {
