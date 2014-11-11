@@ -1,13 +1,12 @@
-package View;
+package view;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import Controller.Controller;
+import controller.Controller;
 
 public class MainGUI {
 	
@@ -124,22 +123,34 @@ public class MainGUI {
 		tableConstrButton.setBounds(520, 440, 200, 50);
 		mainPanel.add(tableConstrButton);
 		
+		JButton tableMostRowsButton = new JButton("Show table with most rows");
+		tableMostRowsButton.setBounds(520, 500, 200, 50);
+		mainPanel.add(tableMostRowsButton);
+		
 		JButton allTablesButton = new JButton("Show all tables");
 		allTablesButton.setBounds(740, 320, 200, 50);
 		mainPanel.add(allTablesButton);
 		
+		JButton allTables2Button = new JButton("Show all tables (2)");
+		allTables2Button.setBounds(740, 380, 200, 50);
+		mainPanel.add(allTables2Button);
+		
 		JButton empColumnButton = new JButton("Show employee columns");
-		empColumnButton.setBounds(740, 380, 200, 50);
+		empColumnButton.setBounds(740, 440, 200, 50);
 		mainPanel.add(empColumnButton);
 		
-		JButton tableMostRowsButton = new JButton("Show table with most rows");
-		tableMostRowsButton.setBounds(740, 440, 200, 50);
-		mainPanel.add(tableMostRowsButton);
+		JButton empColumn2Button = new JButton("Show employee columns (2)");
+		empColumn2Button.setBounds(740, 500, 200, 50);
+		mainPanel.add(empColumn2Button);
+		
+
 		
 		/* ---- ACTION LISTENERS! ---- */
 
 		empContButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				dataModel.setRowCount(0);
 				try {
 					String tableColumn[] = {"Employee NO:", "First name:", "Last name:", "Initials:", "Job title:", "Search name:"};
 					dataModel.setColumnIdentifiers(tableColumn);
@@ -152,6 +163,8 @@ public class MainGUI {
 
 		absContButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				dataModel.setRowCount(0);
 				try {
 					String tableColumn[] = {"Employee NO:", "From (date):", "To (date):", "Cause of absence:", "Description:"};
 					dataModel.setColumnIdentifiers(tableColumn);
@@ -165,6 +178,8 @@ public class MainGUI {
 
 		relContButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				dataModel.setRowCount(0);
 				try {
 					String tableColumn[] = {"Employee NO:", "Relative code:", "First name:", "Last name:", "Birth date:"};
 					dataModel.setColumnIdentifiers(tableColumn);
@@ -178,6 +193,8 @@ public class MainGUI {
 
 		qualiContButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				dataModel.setRowCount(0);
 				try {
 					String tableColumn[] = {"Employee NO:", "Qualification code:", "From date:", "To date:", "Description:"};
 					dataModel.setColumnIdentifiers(tableColumn);
@@ -191,6 +208,8 @@ public class MainGUI {
 		
 		empMDButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				dataModel.setRowCount(0);
 				try {
 
 					String tableColumn[] = {"Table catalog:", "Table schema:", "Table name:", "Column name:", "Data type:"};
@@ -205,8 +224,10 @@ public class MainGUI {
 		
 		absMDButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				dataModel.setRowCount(0);
 				try {
-					String tableColumn[] = {"Table name:", "Row count:"};
+					String tableColumn[] = {"Table catalog:", "Table schema:", "Table name", "Column name", "Data type"};
 					dataModel.setColumnIdentifiers(tableColumn);
 					dataTable.setModel(controller.getAbsenceMetadata(dataModel));
 				}
@@ -218,8 +239,10 @@ public class MainGUI {
 		
 		relMDButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				dataModel.setRowCount(0);
 				try {
-					String tableColumn[] = {"Table name:", "Row count:"};
+					String tableColumn[] = {"Table catalog:", "Table schema:", "Table name", "Column name", "Data type"};
 					dataModel.setColumnIdentifiers(tableColumn);
 					dataTable.setModel(controller.getRelativeMetadata(dataModel));
 				}
@@ -231,8 +254,10 @@ public class MainGUI {
 		
 		qualiMDButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				dataModel.setRowCount(0);
 				try {
-					String tableColumn[] = {"Table name:", "Row count:"};
+					String tableColumn[] = {"Table catalog:", "Table schema:", "Table name:", "Column name:", "Data type:"};
 					dataModel.setColumnIdentifiers(tableColumn);
 					dataTable.setModel(controller.getQualificationMetadata(dataModel));
 				}
@@ -244,6 +269,8 @@ public class MainGUI {
 		
 		DBKeysButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				dataModel.setRowCount(0);
 				try {
 					String tableColumn[] = {"Name of constraint:", "Schema name:", "Table name:", "Constraint type:"};
 					dataModel.setColumnIdentifiers(tableColumn);
@@ -257,6 +284,8 @@ public class MainGUI {
 		
 		DBindexButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				dataModel.setRowCount(0);
 				try {
 					String tableColumn[] = {"Table name:", "Index name:", "Index type:"};
 					dataModel.setColumnIdentifiers(tableColumn);
@@ -270,6 +299,8 @@ public class MainGUI {
 		
 		tableConstrButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				dataModel.setRowCount(0);
 				try {
 					String tableColumn[] = {"Constraint name:", "Constraint type:", "Table name:"};
 					dataModel.setColumnIdentifiers(tableColumn);
@@ -283,6 +314,8 @@ public class MainGUI {
 		
 		allTablesButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				dataModel.setRowCount(0);
 				try {
 					String tableColumn[] = {"Table catalog:", "Table schema:", "Table name:", "Table type:"};
 					dataModel.setColumnIdentifiers(tableColumn);
@@ -294,8 +327,25 @@ public class MainGUI {
 			}
 		});   
 		
+		allTables2Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				dataModel.setRowCount(0);
+				try {
+					String tableColumn[] = {"Table name:", "Object id:", "Type description:"};
+					dataModel.setColumnIdentifiers(tableColumn);
+					dataTable.setModel(controller.getAllTables2(dataModel));
+				}
+				catch (SQLException SQLErr) {
+					SQLErr.printStackTrace();
+				}
+			}
+		});  
+		
 		empColumnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				dataModel.setRowCount(0);
 				try {
 					String tableColumn[] = {"Column names:"};
 					dataModel.setColumnIdentifiers(tableColumn);
@@ -307,8 +357,25 @@ public class MainGUI {
 			}
 		});   
 		
+		empColumn2Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				dataModel.setRowCount(0);
+				try {
+					String tableColumn[] = {"Column names:"};
+					dataModel.setColumnIdentifiers(tableColumn);
+					dataTable.setModel(controller.getAllColumns2(dataModel));
+				}
+				catch (SQLException SQLErr) {
+					SQLErr.printStackTrace();
+				}
+			}
+		});  
+		
 		tableMostRowsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				dataModel.setRowCount(0);
 				try {
 					String tableColumn[] = {"Table name:", "Row count:"};
 					dataModel.setColumnIdentifiers(tableColumn);
