@@ -8,204 +8,199 @@ import dataAccessLayer.DAL;
 public class Controller {
 
 	public DAL dal;
-	
+
 	public Controller() throws SQLException {
 		dal = new DAL();
 	}
-	
-	public void registerStudent(String firstName, String lastName, String socNmbr, String adress, String city, String zipCode) throws SQLException {	// Registers a specific student!
+
+	/* -------------------------------------------------------------------------------------------------- */
+	/* ---------------------------------------- REGISTER STUDENT! --------------------------------------- */
+	/* -------------------------------------------------------------------------------------------------- */
+
+	public void registerStudent(String firstName, String lastName, String socNmbr, String adress, String city, String zipCode) throws SQLException {	
 		dal.registerStudent(firstName, lastName, socNmbr, adress, city, zipCode);
 	}
-	
-	public void registerStudentEmail(String eMail, String socNmbr) throws SQLException {
-		dal.registerStudentEmail(eMail, socNmbr);
+
+	public void registerStudentEmail(String socNmbr, String eMail) throws SQLException {
+		dal.registerStudentEmail(socNmbr, eMail);
+	}
+
+	public void registerStudentTelNmbr(String socNmbr, String telNmbr) throws SQLException {
+		dal.registerStudentTelNmbr(socNmbr, telNmbr);
+	}
+
+	/* -------------------------------------------------------------------------------------------------- */
+	/* ---------------------------------------- CHECK STUDENT! ------------------------------------------ */
+	/* -------------------------------------------------------------------------------------------------- */
+
+	public boolean registerStudentCheckSocNmbr(String socNmbr) throws SQLException {
+		return dal.registerStudentCheckSocNmbr(socNmbr);
 	}
 	
-	public void registerStudentPhone(String telNmbr, String socNmbr) throws SQLException {
-		dal.registerStudentPhone(telNmbr, socNmbr);
+	public boolean registerStudentCheckEmail(String eMail) throws SQLException {
+		return dal.registerStudentCheckEmail(eMail);
 	}
-	public DefaultTableModel getAllStudentsWEmail(DefaultTableModel StudentModel) throws SQLException {
-		return dal.getAllStudentsWEmail(StudentModel);
+
+	public boolean registerStudentCheckPhoneNmbr(String telNmbr) throws SQLException {	
+		return dal.registerStudentCheckPhoneNmbr(telNmbr);
 	}
-	public DefaultTableModel getStudentByFirstName(String searchFirstName, DefaultTableModel StudentModel) throws SQLException { // Finds a specific student by first name!
-		return dal.getStudentByFirstName(searchFirstName, StudentModel);
+
+	/* -------------------------------------------------------------------------------------------------- */
+	/* ------------------------------------------ GET STUDENT! ------------------------------------------ */
+	/* -------------------------------------------------------------------------------------------------- */
+
+	public DefaultTableModel getStudentByFirstName(String firstName, DefaultTableModel StudentModel) throws SQLException { 
+		return dal.getStudentByFirstName(firstName, StudentModel);
+	}
+
+	public DefaultTableModel getStudentByLastName(String lastName, DefaultTableModel StudentModel) throws SQLException {
+		return dal.getStudentByLastName(lastName, StudentModel);
+	}
+
+	public DefaultTableModel getStudentBySocNmbr(String socNmbr, DefaultTableModel StudentModel) throws SQLException { 
+		return dal.getStudentBySocNmbr(socNmbr, StudentModel);
+	}
+
+	public DefaultTableModel getAllStudents(DefaultTableModel StudentModel) throws SQLException {
+		return dal.getAllStudents(StudentModel);
+	}
+
+	/* -------------------------------------------------------------------------------------------------- */
+	/* ----------------------------------------- REMOVE STUDENT! ---------------------------------------- */
+	/* -------------------------------------------------------------------------------------------------- */
+
+	public void removeStudent(String socNmbr) throws SQLException {
+		dal.removeStudent(socNmbr);
+	}
+
+	/* -------------------------------------------------------------------------------------------------- */
+	/* -------------------------------------- OTHER STUDENT METHODS! ------------------------------------ */
+	/* -------------------------------------------------------------------------------------------------- */
+
+	public DefaultTableModel getStudentActiveCourses(String socNmbr, DefaultTableModel CourseModel) throws SQLException {
+		return dal.getStudentActiveCourses(socNmbr, CourseModel);
+	}
+
+	public DefaultTableModel getStudentPastCourses(String socNmbr, DefaultTableModel CourseModel) throws SQLException {
+		return dal.getStudentPastCourses(socNmbr, CourseModel);
+	}
+
+	public String getStudentGrade(String socNmbr, String courseCode, DefaultTableModel StudentModel) throws SQLException { 
+		return dal.getStudentGrade(socNmbr, courseCode, StudentModel);
+	}
+
+	/* -------------------------------------------------------------------------------------------------- */
+	/* ---------------------------------------- REGISTER COURSE! ---------------------------------------- */
+	/* -------------------------------------------------------------------------------------------------- */
+
+	public void registerCourse(String courseName, String courseCode, int credits) throws SQLException {	
+		dal.registerCourse(courseName, courseCode, credits);
 	}
 	
-	public DefaultTableModel getStudentByLastName(String searchLastName, DefaultTableModel StudentModel) throws SQLException { // Finds a specific student by first name!
-		return dal.getStudentByLastName(searchLastName, StudentModel);
+	/* -------------------------------------------------------------------------------------------------- */
+	/* ------------------------------------------ CHECK COURSE! ----------------------------------------- */
+	/* -------------------------------------------------------------------------------------------------- */
+	
+	public boolean registerCourseCheckCourseCode(String courseCode) throws SQLException {
+		return dal.registerCourseCheckCourseCode(courseCode);
 	}
 	
-	public DefaultTableModel getStudentWEmail(String searchSocNmbr, DefaultTableModel StudentModel) throws SQLException { // Finds a specific student!
-		return dal.getStudentWEmail(searchSocNmbr, StudentModel);
+	/* -------------------------------------------------------------------------------------------------- */
+	/* -------------------------------------------- GET COURSE! ----------------------------------------- */
+	/* -------------------------------------------------------------------------------------------------- */
+		
+	public DefaultTableModel getCourseByCode(String courseCode, DefaultTableModel StudentModel) throws SQLException { 
+		return dal.getCourseByCode(courseCode, StudentModel);
 	}
 	
-	public DefaultTableModel getCourseByName(String courseDef, DefaultTableModel CourseModel) throws SQLException { // Finds a specific course!
-		return dal.getCourseByName(courseDef, CourseModel);
+	public DefaultTableModel getCourseByName(String courseSearchName, DefaultTableModel CourseModel) throws SQLException { 
+		return dal.getCourseByName(courseSearchName, CourseModel);
 	}
 	
-	public DefaultTableModel getStudent(String socNmbr, DefaultTableModel StudentModel) throws SQLException { // Finds a specific student!
-		return dal.getStudent(socNmbr, StudentModel);
+	public DefaultTableModel getAllCourses(DefaultTableModel CourseModel) throws SQLException {
+		return dal.getAllCourses(CourseModel);
 	}
 	
 	public Integer getCourseCredtis(String courseCode) throws SQLException {
 		return dal.getCourseCredits(courseCode);
 	}
-	
-	public String getStudentResult(String socNmbr, String courseCode, DefaultTableModel StudentModel) throws SQLException { // Shows a specific students result on a specific course!
-		return dal.getStudentResult(socNmbr, courseCode, StudentModel);
-	}
-	
-	public void updateStudent(String firstName, String lastName, String socNmbr, String adress, String city, String zipCode) throws SQLException { // Updates a specific student!
-		dal.updateStudent(firstName, lastName, socNmbr, adress, city, zipCode);
-	}
-	
-	public void removeStudent(String socNmbr) throws SQLException { // Removes a specific student!
-		dal.removeStudent(socNmbr);
-	}
-	
-	public void registerCourse(String courseName, String courseCode, int credits) throws SQLException {	// Registers a specific course!
-		dal.registerCourse(courseName, courseCode, credits);
-	}
-	public void gradeStudentOnCourse(String socNmbr, String courseCode, String grade) throws SQLException { //Grades student on a specific course
-		dal.gradeStudentOnCourse(socNmbr, courseCode, grade);
-	}
-	
-	public DefaultTableModel getCourse(String courseCode, DefaultTableModel StudentModel) throws SQLException { // Finds a specific course!
-		return dal.getCourse(courseCode, StudentModel);
-	}
-	
-	public DefaultTableModel getStudentHistory(String socNmbr, DefaultTableModel CourseModel) throws SQLException { // Finds students who took the course and their grade!
-		return dal.getStudentHistory(socNmbr, CourseModel);
-	}
-	
-	public DefaultTableModel getCourseHistory(String courseCode, DefaultTableModel StudentModel) throws SQLException { // Finds students who took the course and their grade!
-		return dal.getCourseHistory(courseCode, StudentModel);
-	}
-	
-	public void updateCourse(String courseName, String courseCode, int credits) throws SQLException { // Updates a specific course!
-		dal.updateCourse(courseName, courseCode, credits);
-	}
-	
+
+	/* -------------------------------------------------------------------------------------------------- */
+	/* ----------------------------------------- REMOVE COURSE! ----------------------------------------- */
+	/* -------------------------------------------------------------------------------------------------- */
+
 	public void removeCourse(String courseCode) throws SQLException { // Removes a specific course!
 		dal.removeCourse(courseCode);
 	}
 	
-	public Integer getHighGradePercentage(String courseCode) throws SQLException { // Gets the percentage for students who got A on a specific course!
+	/* -------------------------------------------------------------------------------------------------- */
+	/* ----------------------------------- OTHER COURSE METHODS COURSE! --------------------------------- */
+	/* -------------------------------------------------------------------------------------------------- */
+	
+	public DefaultTableModel getCourseActiveStudents(String courseCode, DefaultTableModel StudentModel) throws SQLException {
+		return dal.getCourseActiveStudents(courseCode, StudentModel);
+	}	
+	
+	public DefaultTableModel getCoursePastStudents(String courseCode, DefaultTableModel StudentModel) throws SQLException { 
+		return dal.getCoursePastStudents(courseCode, StudentModel);
+	}
+	
+	public Integer getHighGradePercentage(String courseCode) throws SQLException { 
 		return dal.getHighGradePercentage(courseCode);
 	}
-	
-	public Integer getCourseThroughput(String courseCode) throws SQLException { // Ranks all courses by highest throughput (students who has taken a course with at least grade 'E'!
+
+	public Integer getCourseThroughput(String courseCode) throws SQLException { 
 		return dal.getCourseThroughput(courseCode);
 	}
-	
-	public DefaultTableModel getAllStudents(DefaultTableModel StudentModel) throws SQLException {
-		return dal.getAllStudents(StudentModel);
+		
+	/* -------------------------------------------------------------------------------------------------- */
+	/* ------------------------------------ REGISTER STUDENT ON COURSE! --------------------------------- */
+	/* -------------------------------------------------------------------------------------------------- */
+
+	public void registerStudentOnCourse(String socNmbr, String courseCode) throws SQLException {
+		dal.registerStudentOnCourse(socNmbr, courseCode);
 	}
 	
-	public DefaultTableModel getAllCourses(DefaultTableModel CourseModel) throws SQLException { // Finds all courses!
-		return dal.getAllCourses(CourseModel);
-	}
-	
-	public DefaultTableModel getAllCoursesByThroughPut(DefaultTableModel CourseModel) throws SQLException {
-		return dal.getAllCoursesByThroughPut(CourseModel);
-	}
-	
-	public boolean registerCourseCheckCourseCode(String courseCode) throws SQLException {
-		if (dal.registerCourseCheckCourseCode(courseCode) == true) {
+	public boolean registerStudentOnCourseCheckCredits(String socNmbr, String courseCode) throws SQLException {
+		
+		// Checks if student credits, including the course it is about to be registered on, exceeds 45 credits...
+		
+		if ((dal.getTotalStudentCredits(socNmbr) + dal.getCourseCredits(courseCode)) <= 45) {
 			return true;
 		}
 		return false;
-	}
-	public boolean registerStudentCheckEmail(String socNmbr, String eMail) throws SQLException {
-		if (dal.registerStudentEmailCheck(eMail) == true){
-			return true;}
-		return false;
-		}
-	
-	public boolean registerStudentCheckPhone(String socNmbr, String telNmbr) throws SQLException {	
-		if (dal.registerStudentPhoneCheck(telNmbr) == true){
-			return true;}
-		return false;
-		}
-	
-		
-		
-	public boolean registerStudentCheckSocNmbr(String socNmbr) throws SQLException {
-		if(dal.registerStudentSocNmbrCheck(socNmbr) == true){
-			System.out.println("hejhejehje");
-			return true; }
-		return false;
-		}
-	
-	public boolean gradeStudentOnCourseCheckIfTaking(String socNmbr, String courseCode) throws SQLException {
-		if(dal.gradeStudentOnCourseCheckIfTaking(socNmbr, courseCode) == true) {
-			System.out.println("halloj");
-		return true;
-		}
-		return false;
-	}
-
-	public boolean gradeStudentOnCourseCheckIfGradeIsU(String socNmbr, String courseCode, String grade) throws SQLException {
-		if (dal.gradeStudentOnCourseCheckIfGradeIsU(socNmbr, courseCode, grade) == true) {
-			System.out.println("hala");
-			return true; 
-			}
-		return false;
-		}
-		
-
-	public void gradeStudentOnCourseTest (String socNmbr, String courseCode, String grade) throws SQLException {
-		dal.gradeStudentOnCourseTest(socNmbr, courseCode, grade);
-	}
-	
-	public void reGradeStudentOnCourse (String socNmbr, String courseCode, String grade) throws SQLException {
-		dal.reGradeStudentOnCourseTest(socNmbr, courseCode, grade);
 	}
 	
 	public boolean registerStudentOnCourseCheckIfTaking (String socNmbr, String courseCode) throws SQLException {
-		if(dal.registerStudentOnCourseCheckIfTaking(socNmbr, courseCode) == true) {
-			System.out.println("haloj");
-			return true;
-		}
-		return false;
-	}
-	
-	public boolean registerStudentOnCourseCheckIfTaken (String socNmbr, String courseCode) throws SQLException {
-		if(dal.registerStudentOnCourseCheckIfTaken(socNmbr, courseCode) == true) {
-			System.out.println("hanfnd");
-			return true;
-		}
-		return false;
-	}
-	
-	public void registerStudentOnCourse(String socNmbr, String courseCode) throws SQLException { // Adds a student to a course!
-		
-		if ((dal.getTotalStudentCredits(socNmbr) + dal.getCourseCredits(courseCode)) <= 45) {
-			dal.registerStudentOnCourse(socNmbr, courseCode);
-			System.out.println("Student registered!");
-		}
-		else {
-			System.out.println("Total student credits is too high!");
-		}
-	}
-	
-	public boolean registerStudentOnCourseCheck(String socNmbr, String courseCode) throws SQLException {
-		//Check history
-		if ((dal.getTotalStudentCredits(socNmbr) + dal.getCourseCredits(courseCode)) <= 45) {
-			return true;
-		}
-		return false;
-		}
-	
-	public void removeStudentFromCourse(String socNmbr, String courseCode, String grade) throws SQLException { // Removes a student from a course!
-		dal.removeStudentFromCourse(socNmbr, courseCode, grade);
+		return dal.registerStudentOnCourseCheckIfTaking(socNmbr, courseCode);
 	}
 
-	public DefaultTableModel getActiveStudents(String courseCode, DefaultTableModel StudentModel) throws SQLException {
-		return dal.getActiveStudents(courseCode, StudentModel);
-	}	
-	
-	public DefaultTableModel getActiveCourses(String socNmbr, DefaultTableModel CourseModel) throws SQLException {
-		return dal.getActiveCourses(socNmbr, CourseModel);
+	public boolean registerStudentOnCourseCheckIfTaken (String socNmbr, String courseCode) throws SQLException {
+		return dal.registerStudentOnCourseCheckIfTaken(socNmbr, courseCode);
 	}
+	
+	/* -------------------------------------------------------------------------------------------------- */
+	/* ------------------------------------- GRADE STUDENT ON COURSE! ----------------------------------- */
+	/* -------------------------------------------------------------------------------------------------- */
+	
+	public void gradeStudentOnCourse(String socNmbr, String courseCode, String grade) throws SQLException {
+		dal.gradeStudentOnCourse(socNmbr, courseCode, grade);
+	}
+
+	public boolean gradeStudentOnCourseCheckIfTaking(String socNmbr, String courseCode) throws SQLException {
+		return dal.gradeStudentOnCourseCheckIfTaking(socNmbr, courseCode);
+	}
+
+	public boolean gradeStudentOnCourseCheckIfGradeIsU(String socNmbr, String courseCode, String grade) throws SQLException {
+		return dal.gradeStudentOnCourseCheckIfGradeIsU(socNmbr, courseCode, grade);
+	}
+	
+	public void reGradeStudentOnCourse (String socNmbr, String courseCode, String grade) throws SQLException {
+		dal.reGradeStudentOnCourse(socNmbr, courseCode, grade);
+	}
+	
+	/* -------------------------------------------------------------------------------------------------- */
+	/* -------------------------------------------------------------------------------------------------- */
+	/* -------------------------------------------------------------------------------------------------- */
+	
 }
